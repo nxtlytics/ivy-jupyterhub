@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  jupyterhub:
+    image: ivy-jupyterhub:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      LOG_LEVEL: 'DEBUG'
+      DB_HOST: 'db:5432'
+      DB_USER: 'jupyterhub'
+      DB_NAME: 'jupyterhub'
+      SERVICE_NAME: 'jupyterhub'
+      MARATHON_HOST: 'http://master.mesos.service.dev.ivy:8080/'
+      PUBLIC_URL: 'http://jupyterhub.local.nxtlytics.dev:8000'
+      DOCKER_HOST: 'tcp://<IP>:2376' # IP of the docker host where you will spawn containers on
+      HUB_IP: '<IP>' # This is the IP spawned containers in the DOCKER_HOST will use to connect back to jupyterhub
+    env_file:
+      - secrets.env
+    volumes:
+      - ./jupyterhub_config.py:/app/jupyterhub_config.py
+    depends_on:
+      - db
+  db:
+    image: postgres:11.7
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: 'jupyterhub'
+      POSTGRES_USER: 'jupyterhub'
+    env_file:
+      - secrets.env

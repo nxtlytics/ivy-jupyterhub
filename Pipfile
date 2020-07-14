@@ -1,0 +1,23 @@
+[scripts]
+lint = "python -m black --target-version py37 --line-length 120 --check ."
+lint-fix = "python -m black --target-version py37 --line-length 120 ."
+test = "python -m pytest -v --junitxml=tmp/test-output/pytest.xml"
+
+[packages]
+jupyterhub = {editable = true,git = "https://github.com/jupyterhub/jupyterhub.git",ref = "8db8df6d7ad1e23806305ca784c414cca9341f54"}
+wrapspawner = {editable = true,git = "https://github.com/jupyterhub/wrapspawner"}
+oauthenticator = {editable = true,git = "https://github.com/jupyterhub/oauthenticator.git",ref = "357a2af8b8ce24789cbdc4fab906b088503f4373"}
+psycopg2-binary = "==2.8.4"
+marathonspawner = {editable = true,git = "https://github.com/missingcharacter/marathonspawner.git",ref = "87e01cd3d54e1d64078a78f5a097068a2903f1c2"}
+marathon = {editable = true,git = "https://github.com/thefactory/marathon-python.git",ref = "34ea9db4b127330b34043e8343eb6068d48fe4c4"}
+pycurl = "==7.43.0.5"
+google-api-python-client = "==1.7.12"
+google-auth-oauthlib = "==0.4.1"
+dockerspawner = {editable = true,git = "https://github.com/jupyterhub/dockerspawner.git",ref = "6f7e04ce9f989e98cf99bb2a6dfa1cff96466135"}
+
+[dev-packages]
+pytest = "*"
+black = "==19.3b0"
+
+[requires]
+python_version = "3.8"

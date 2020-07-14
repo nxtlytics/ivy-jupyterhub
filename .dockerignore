@@ -1,0 +1,5 @@
+.circleci
+.pytest_cache
+.idea
+*.env
+*.iml
